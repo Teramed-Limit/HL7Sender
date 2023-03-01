@@ -1,0 +1,21 @@
+{
+  "studyInstanceUid": "1.3.6.1.4.1.29974.28.20230203.171925.982526",
+  "studyDate": "20230203",
+  "patientId": "P20230203982526",
+  "patientsName": "TEST982526",
+  "patientsAge": null,
+  "version": 61,
+  "reportStatus": "Signed",
+  "author": "admin",
+  "pdffilePath": "C:\\WORK\\IntegrationServer\\PDF\\1.3.6.1.4.1.29974.28.20230203.171925.982526.pdf",
+  "accessionNumber": "AP20230203982526",
+  "studyDescription": "TEST",
+  "modality": "SC",
+  "dateTime": "2023-03-14T14:55:33",
+  "lastSignOffExecuteTime": null,
+  "referringPhysiciansName": "",
+  "nameofPhysiciansReading": "",
+  "performingPhysiciansName": "",
+  "patientsSex": "F",
+  "patientsBirthDate": ""
+}
