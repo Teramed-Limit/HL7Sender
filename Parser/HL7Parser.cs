@@ -1,4 +1,5 @@
-﻿using NHapi.Base.Model;
+﻿using HL7Sender.DataStructure;
+using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using SendingPDFHL7.DataStructure;
 using SendingPDFHL7.HL7Structure;
@@ -34,6 +35,32 @@ public class HL7Parser
         hl7Parser.ProcessStructureGroup((AbstractGroup)hl7Message, treeNode);
 
         return treeNode;
+    }
+
+    /// <summary>
+    /// 處理HL7 MSA結構
+    /// </summary>
+    /// <param name="message">HL7訊息</param>
+    public (bool isSuccess, string message) ParseMSAMessage(string message)
+    {
+        // 找出Acknowledgment code
+        // Acknowledgment code是一個二字母的代碼，它的具體含義如下：
+        var field = ParseHL7Message(message).FindFirst("Acknowledgement code");
+        switch (field.Value)
+        {
+            // AA（Application Accept）：表示消息已成功接收且已通過驗證，並已在目標系統中成功處理。
+            case "AA":
+                return (true, "發送成功");
+            // AE（Application Error）：表示由於某些原因，消息無法在目標系統中處理。
+            case "AE":
+                return (false, "發送失敗，AE表示由於某些原因，");
+            // AR（Application Reject）：表示消息被目標系統拒絕，可能是由於格式錯誤、缺少必需的信息或是安全問題等。
+            case "AR":
+                return (false, "發送失敗，AR表示消息被目標系統拒絕，可能是由於格式錯誤、缺少必需的信息或是安全問題等");
+            default:
+                Console.Out.WriteLine("未知的錯誤");
+                return (false, "未知的錯誤");
+        }
     }
 
     /// <summary>

@@ -1,0 +1,23 @@
+{
+  "name": "hl7sender",
+  "version": "0.0.0-development",
+  "description": "HL7Sender 是一個能夠動態產出自定義 HL7 訊息並將其傳送至指定 HL7 Server 的命令列執行檔。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "semantic-release": "semantic-release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teramed-Limit/HL7Sender.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Teramed-Limit/HL7Sender/issues"
+  },
+  "homepage": "https://github.com/Teramed-Limit/HL7Sender#readme",
+  "devDependencies": {
+    "semantic-release": "^20.1.3"
+  }
+}

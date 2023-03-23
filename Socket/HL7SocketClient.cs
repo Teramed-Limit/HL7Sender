@@ -3,6 +3,7 @@ using System.Text;
 using NHapi.Base.Model;
 using NHapi.Base.Parser;
 using NHapiTools.Base.Util;
+using Serilog;
 
 namespace HL7Sender.Socket;
 
@@ -66,13 +67,28 @@ public class HL7SocketClient
 
             MLLP.StripMLLPContainer(sb);
 
+            // 找到MSH起始位置，移除起始位置之前的所有內容
+            var originalResultMessage = sb.ToString();
+            if (!originalResultMessage.Contains("MSH"))
+            {
+                DisConnect();
+                Log.Error("錯誤：找不到 MSH 段落");
+                await Console.Out.WriteLineAsync("錯誤：找不到 MSH 段落");
+                throw new Exception("錯誤：找不到 MSH 段落");
+            }
+
+            var startIndex = originalResultMessage.IndexOf("MSH", StringComparison.Ordinal);
+            if (startIndex >= 0)
+                originalResultMessage = originalResultMessage.Substring(startIndex);
+
             // 紀錄回傳的訊息
-            SaveHL7ToFile("response.hl7", sb.ToString());
-            return sb.ToString();
+            SaveHL7ToFile("response.hl7", originalResultMessage);
+            return originalResultMessage;
         }
         catch (Exception e)
         {
             DisConnect();
+            Log.Error("SendHL7Message message {Message}", e.Message);
             await Console.Out.WriteLineAsync($"SendHL7Message error, {e.Message}");
             throw;
         }

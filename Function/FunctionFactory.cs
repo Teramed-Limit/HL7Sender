@@ -7,21 +7,18 @@ namespace HL7Sender.Function;
 
 public class FunctionFactory
 {
-    private readonly Dictionary<string, Func<string[], string>> _functionDict = new();
+    public readonly Dictionary<string, Func<string, string>> functions = new();
+
 
     public FunctionFactory()
     {
-        _functionDict.Add("GetJsonProperty", args => GetJsonProperty(args[0]));
-        _functionDict.Add("GetCurrentTimeStamp", args => GetCurrentTimeStamp(args[0]));
-        _functionDict.Add("GetSequenceNumber", _ => GetSequenceNumber());
-        _functionDict.Add("ConvertToBase64", args => ConvertToBase64(args[0]));
-        _functionDict.Add("GenerateOBXPDFBase64", args => GenerateOBXPDFBase64(args[0]));
+        functions.Add("GetJsonProperty", GetJsonProperty);
+        functions.Add("GetCurrentTimeStamp", GetCurrentTimeStamp);
+        functions.Add("GetSequenceNumber", _ => GetSequenceNumber());
+        functions.Add("ConvertToBase64", ConvertToBase64);
+        functions.Add("GenerateOBXPDFBase64", GenerateOBXPDFBase64);
     }
 
-    public string Execute(string functionName, string[] functionParams)
-    {
-        return _functionDict[functionName](functionParams);
-    }
 
     private string GetJsonProperty(string fieldName)
     {
