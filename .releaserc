@@ -2,18 +2,7 @@
   "plugins": [
     "@semantic-release/commit-analyzer",
     "@semantic-release/release-notes-generator",
-    [
-      "@semantic-release/github",
-      {
-        "assets": [
-          {
-            "path": "publish.zip",
-            "label": "專案發布檔案 (publish.zip)",
-            "name": "publish.zip"
-          }
-        ]
-      }
-    ],
+    "@semantic-release/github",
     "@semantic-release/git"
   ]
 }
